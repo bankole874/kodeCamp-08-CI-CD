@@ -1,7 +1,7 @@
 variable "ssh_key_name" {
   description = "The name of the SSH key pair"
   type        = string
-  default     = "id_rsa"
+  default     = "kckey_rsa"
 }
 
 variable "ssh_key_path" {
