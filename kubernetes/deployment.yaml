@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kc-docker-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kc-docker-app
+  template:
+    metadata:
+      labels:
+        app: kc-docker-app
+    spec:
+      containers:
+      - name: kc-docker-app
+        image: bankdoo/kc-docker-app:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: WELCOME_MESSAGE
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: WELCOME_MESSAGE
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: DB_PASSWORD
