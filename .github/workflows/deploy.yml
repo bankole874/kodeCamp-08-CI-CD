@@ -45,9 +45,9 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > kckey_rsa.pem
           chmod 400 kckey_rsa.pem
           scp -r -i "kckey_rsa.pem" kubernetes ubuntu@${{ secrets.EC2_IP }}:~/kubernetes
-          ssh -i "kckey_rsa.pem" ubuntu@${{ secrets.EC2_IP }} << 'EOF'
-            kubectl apply -f ~/kubernetes/secret.yaml
-            kubectl apply -f ~/kubernetes/configmap.yaml
-            kubectl apply -f ~/kubernetes/service.yaml
-            kubectl apply -f ~/kubernetes/deployment.yaml
+          ssh -i "kckey_rsa.pem" ubuntu@${{ secrets.EC2_IP }}
+          kubectl apply -f ~/kubernetes/secret.yaml
+          kubectl apply -f ~/kubernetes/configmap.yaml
+          kubectl apply -f ~/kubernetes/service.yaml
+          kubectl apply -f ~/kubernetes/deployment.yaml
           EOF
