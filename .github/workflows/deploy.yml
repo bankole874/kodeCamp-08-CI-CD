@@ -40,14 +40,13 @@ jobs:
         with:
           SSHKEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSHCONFIG: |
-            Host ip-10-0-1-75
               HostName ${{ secrets.EC2_IP }}
               User ubuntu
               IdentityFile ~/.ssh/id_rsa
 
       - name: Deploy to Minikube
         run: |
-          scp -r kubernetes ip-10-0-1-75:~/kubernetes
+          scp -r kubernetes ubuntu@${{ secrets.EC2_IP }}:~/kubernetes
           ssh ec2-server << 'EOF'
             kubectl apply -f ~/kubernetes/secret.yaml
             kubectl apply -f ~/kubernetes/configmap.yaml
