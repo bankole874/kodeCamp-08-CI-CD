@@ -41,11 +41,11 @@ jobs:
       #     SSHKEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Deploy to Minikube
-        run: |
+        run: 
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > kckey_rsa.pem
           chmod 400 kckey_rsa.pem
-          scp -r -i kckey_rsa.pem kubernetes ubuntu@${{ secrets.EC2_IP }}:~/kubernetes
-          ssh -i kckey_rsa.pem ubuntu@${{ secrets.EC2_IP }} << 'EOF'
+          scp -r -i "kckey_rsa.pem" kubernetes ubuntu@${{ secrets.EC2_IP }}:~/kubernetes
+          ssh -i "kckey_rsa.pem" ubuntu@${{ secrets.EC2_IP }} << 'EOF'
             kubectl apply -f ~/kubernetes/secret.yaml
             kubectl apply -f ~/kubernetes/configmap.yaml
             kubectl apply -f ~/kubernetes/service.yaml
