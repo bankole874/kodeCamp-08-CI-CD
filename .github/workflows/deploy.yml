@@ -40,17 +40,14 @@ jobs:
         with:
           SSHKEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Add remote server to known_hosts
-        run: |
-          ssh-keyscan -H ${{ secrets.EC2_IP }} >> ~/.ssh/known_hosts
-
       - name: Deploy to Minikube
         run: |
-          scp -r kubernetes ubuntu@${{ secrets.EC2_IP }}:~/kubernetes
-          ssh ubuntu@${{ secrets.EC2_IP }} << 'EOF'
+          echo ${{ secrets.SSH_PRIVATE_KEY }} >> ~/.ssh/kckey_rsa.pem
+          chmod 400 ~/.ssh/kckey_rsa.pem
+          scp -r -i ~/.ssh/kckey_rsa.pem kubernetes ubuntu@${{ secrets.EC2_IP }}:~/kubernetes
+          ssh -i ~/.ssh/kckey_rsa.pem ubuntu@${{ secrets.EC2_IP }} << 'EOF'
             kubectl apply -f ~/kubernetes/secret.yaml
             kubectl apply -f ~/kubernetes/configmap.yaml
             kubectl apply -f ~/kubernetes/service.yaml
             kubectl apply -f ~/kubernetes/deployment.yaml
           EOF
-
