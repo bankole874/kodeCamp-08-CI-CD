@@ -46,7 +46,7 @@ jobs:
 
       - name: Deploy to Minikube
         run: |
-          #scp -r kubernetes ubuntu@54.197.17.220:~/kubernetes
+          scp -r kubernetes ubuntu@54.197.17.220:~/kubernetes
           ssh ubuntu@${{ secrets.EC2_IP }} << 'EOF'
             kubectl apply -f ~/kubernetes/secret.yaml
             kubectl apply -f ~/kubernetes/configmap.yaml
