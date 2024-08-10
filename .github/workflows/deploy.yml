@@ -42,7 +42,7 @@ jobs:
           SSHCONFIG: |
               HostName ${{ secrets.EC2_IP }}
               User ubuntu
-              IdentityFile ~/.ssh/kckey_rsa.pem
+              IdentityFile ~/.ssh/id_rsa
 
       - name: Deploy to Minikube
         run: |
