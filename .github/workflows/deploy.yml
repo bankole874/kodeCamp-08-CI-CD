@@ -38,7 +38,7 @@ jobs:
       - name: Setup SSH Action
         uses: LuisEnMarroquin/setup-ssh-action@v2.0.0
         with:
-          SSHKEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSHKEY: ${{secrets.SSH_PRIVATE_KEY}}
           SSHCONFIG: |
               HostName ${{ secrets.EC2_IP }}
               User ubuntu
@@ -46,7 +46,7 @@ jobs:
 
       - name: Deploy to Minikube
         run: |
-          scp -r kubernetes ubuntu@3.87.184.220:~/kubernetes
+          scp -r kubernetes ubuntu@${{ secrets.EC2_IP }}:~/kubernetes
           ssh ubuntu@${{ secrets.EC2_IP }} << 'EOF'
             kubectl apply -f ~/kubernetes/secret.yaml
             kubectl apply -f ~/kubernetes/configmap.yaml
