@@ -39,6 +39,11 @@ jobs:
         uses: LuisEnMarroquin/setup-ssh-action@v2.0.0
         with:
           SSHKEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSHCONFIG: |
+            Host ec2-server
+              HostName ${{ secrets.EC2_IP }}
+              User ubuntu
+              IdentityFile ~/.ssh/id_rsa
 
       - name: Deploy to Minikube
         run: |
