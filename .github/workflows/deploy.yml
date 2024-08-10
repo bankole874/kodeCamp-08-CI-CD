@@ -35,10 +35,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4.1.7
 
-      - name: Setup SSH Action
-        uses: LuisEnMarroquin/setup-ssh-action@v2.0.0
-        with:
-          SSHKEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      # - name: Setup SSH Action
+      #   uses: LuisEnMarroquin/setup-ssh-action@v2.0.0
+      #   with:
+      #     SSHKEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Deploy to Minikube
         run: |
@@ -51,4 +51,3 @@ jobs:
             kubectl apply -f ~/kubernetes/service.yaml
             kubectl apply -f ~/kubernetes/deployment.yaml
           EOF
-
