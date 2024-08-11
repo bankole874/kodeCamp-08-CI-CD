@@ -39,17 +39,24 @@ jobs:
       #   uses: LuisEnMarroquin/setup-ssh-action@v2.0.0
       #   with:
       #     SSHKEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2.7.0
+      
+      # - name: Install SSH Key
+      #   uses: shimataro/ssh-key-action@v2.7.0
+      #   with:
+      #       key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #       name: kckey_rsa.pem
+      
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
         with:
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
-            name: kckey_rsa.pem
-            
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}            
+          name: kckey_rsa.pem
+          
       - name: Deploy to Minikube
         run: |
           # echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/kckey_rsa.pem
           # chmod 400 kckey_rsa.pem
-          scp -r -i "~/.ssh/kckey_rsa.pem" ./kubernetes ubuntu@3.87.184.220:~/
+          scp -r -i "/home/runner/.ssh/kckey_rsa.pem" ./kubernetes ubuntu@3.87.184.220:~/
           # scp -r -i "kckey_rsa.pem" ./kubernetes ubuntu@${{ secrets.EC2_IP }}:~/
           # ssh -i "kckey_rsa.pem" ubuntu@${{ secrets.EC2_IP }}
           # mkdir new_directory
