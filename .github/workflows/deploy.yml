@@ -51,7 +51,7 @@ jobs:
           
       - name: Deploy to Minikube
         run: |
-          scp -r -i ~/.ssh/id_rsa.pem ./kubernetes ubuntu@3.87.184.220:~/
+          scp -r -i ~/.ssh/id_rsa ./kubernetes ubuntu@3.87.184.220:~/
           # scp -r -i "kckey_rsa.pem" ./kubernetes ubuntu@${{ secrets.EC2_IP }}:~/
           # ssh -i "kckey_rsa.pem" ubuntu@${{ secrets.EC2_IP }}
           # mkdir new_directory
