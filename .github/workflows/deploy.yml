@@ -39,11 +39,11 @@ jobs:
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          
+
       - name: Add EC2 instance to known hosts
         run: |
-          echo ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-          
+          ssh-keyscan -H ${{ secrets.EC2_IP }} >> ~/.ssh/known_hosts
+
       - name: Deploy to Minikube
         run: |
           scp -r kubernetes ubuntu@${{ secrets.EC2_IP }}:~/kubernetes
