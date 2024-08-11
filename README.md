@@ -69,6 +69,16 @@ ssh -i "<private key>.pem" <user>@<instance IP>
 
 ```
 # deploy.yml
+
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
 ...
  deploy:
     needs: build
