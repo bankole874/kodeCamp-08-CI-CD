@@ -102,6 +102,7 @@ ssh -i "<private key>.pem" <user>@<instance IP>
 
 ### Confirm Build and Deploy
 - Docker Hub image
+
 ![dockerhub](https://github.com/user-attachments/assets/c27896f6-d9a2-41f2-aca7-cf84552ec2b1)
 - Get kubernetes pods
 ```
