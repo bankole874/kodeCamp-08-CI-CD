@@ -1,5 +1,3 @@
-# kodecamp-08-CI-CD
-
 # CI/CD Pipeline with GitHub Actions, Terraform, Minikube, and Kubernetes
 
 ## Introduction
