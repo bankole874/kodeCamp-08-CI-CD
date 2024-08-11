@@ -10,62 +10,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v2
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3.6.1
+        uses: docker/setup-buildx-action@v1
 
-      - name: Docker Login
-        uses: docker/login-action@v3.3.0
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Docker images
-        uses: docker/build-push-action@v6.6.1
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
         with:
           context: .
           push: true
-          tags: bankdoo/kctest-app:latest
+          tags: your-docker-repo/my-app:latest
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v2
 
-      # - name: Set up SSH key
-      #   run: |
-      #     env
-      #     mkdir -p ~/.ssh
-      #     echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/kckey_rsa
-      #     chmod 400 ~/.ssh/kckey_rsa
-      #     ssh-keyscan -p 22 ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-      #     sudo apt-get install sshpass
-
-          
-      - name: Set up SSH
+      - name: Set up SSH agent
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Deploy to Minikube
         run: |
-          scp -r -i ~/.ssh/id_rsa kubernetess ubuntu@${{ secrets.EC2_IP }}:~/kubernetes
-          ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.EC2_IP }} << 'EOF'
-          kubectl apply -f ~/k8s/deployment.yaml
-          kubectl apply -f ~/k8s/service.yaml
+          scp -r kubernetes ubuntu@${{ secrets.EC2_IP }}:~/kubernetes
+          ssh ubuntu@${{ secrets.EC2_IP }} << 'EOF'
+            kubectl apply -f ~/kubernetes/deployment.yaml
+            kubectl apply -f ~/kubernetes/service.yaml
           EOF
-          
-      # - name: Deploy to Minikube
-      #   run: |
-      #     scp -r -i ~/.ssh/id_rsa ./kubernetes ubuntu@3.87.184.220:~/
-      #     # scp -r -i "kckey_rsa.pem" ./kubernetes ubuntu@${{ secrets.EC2_IP }}:~/
-      #     # ssh -i "kckey_rsa.pem" ubuntu@${{ secrets.EC2_IP }}
-      #     # mkdir new_directory
-      #     # kubectl apply -f ~/kubernetes/secret.yaml
-      #     # kubectl apply -f ~/kubernetes/configmap.yaml
-      #     # kubectl apply -f ~/kubernetes/service.yaml
-      #     # kubectl apply -f ~/kubernetes/deployment.yaml
-      #     EOF
