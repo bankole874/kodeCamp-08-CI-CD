@@ -49,14 +49,24 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           
-      - name: Deploy to Minikube
+      - name: Minikube Deployment
         run: |
-          scp -r -i ~/.ssh/id_rsa ./kubernetes ubuntu@3.87.184.220:~/
-          # scp -r -i "kckey_rsa.pem" ./kubernetes ubuntu@${{ secrets.EC2_IP }}:~/
-          # ssh -i "kckey_rsa.pem" ubuntu@${{ secrets.EC2_IP }}
-          # mkdir new_directory
-          # kubectl apply -f ~/kubernetes/secret.yaml
-          # kubectl apply -f ~/kubernetes/configmap.yaml
-          # kubectl apply -f ~/kubernetes/service.yaml
-          # kubectl apply -f ~/kubernetes/deployment.yaml
-          # EOF
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_PUBLIC_IP }} << EOF
+          kubectl config use-context minikube
+          curl -O https://github.com/bankole874/kodeCamp-08-CI-CD/blob/main/kubernetes/service.yaml
+          # kubectl apply -f deployment.yaml
+          curl -O https://raw.githubusercontent.com/lahteeph/containerization/main/k8s/service.yaml
+          # kubectl apply -f service.yaml
+          EOF  
+          
+      # - name: Deploy to Minikube
+      #   run: |
+      #     scp -r -i ~/.ssh/id_rsa ./kubernetes ubuntu@3.87.184.220:~/
+      #     # scp -r -i "kckey_rsa.pem" ./kubernetes ubuntu@${{ secrets.EC2_IP }}:~/
+      #     # ssh -i "kckey_rsa.pem" ubuntu@${{ secrets.EC2_IP }}
+      #     # mkdir new_directory
+      #     # kubectl apply -f ~/kubernetes/secret.yaml
+      #     # kubectl apply -f ~/kubernetes/configmap.yaml
+      #     # kubectl apply -f ~/kubernetes/service.yaml
+      #     # kubectl apply -f ~/kubernetes/deployment.yaml
+      #     EOF
