@@ -35,27 +35,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4.1.7
 
-      # - name: Setup SSH Action
-      #   uses: LuisEnMarroquin/setup-ssh-action@v2.0.0
-      #   with:
-      #     SSHKEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      
-      # - name: Install SSH Key
-      #   uses: shimataro/ssh-key-action@v2.7.0
-      #   with:
-      #       key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #       name: kckey_rsa.pem
-      
-      # - name: Set up SSH
-      #   uses: webfactory/ssh-agent@v0.5.3
-      #   with:
-      #     ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}            
-      #     name: kckey_rsa.pem
+      # - name: Set up SSH key
+      #   run: |
+      #     env
+      #     mkdir -p ~/.ssh
+      #     echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/kckey_rsa
+      #     chmod 400 ~/.ssh/kckey_rsa
+      #     ssh-keyscan -p 22 ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+      #     sudo apt-get install sshpass
+
+      - name: SSH-setup
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           
       - name: Deploy to Minikube
         run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa.pem
-          chmod 400 ~/.ssh/id_rsa.pem
           scp -r -i ~/.ssh/id_rsa.pem ./kubernetes ubuntu@3.87.184.220:~/
           # scp -r -i "kckey_rsa.pem" ./kubernetes ubuntu@${{ secrets.EC2_IP }}:~/
           # ssh -i "kckey_rsa.pem" ubuntu@${{ secrets.EC2_IP }}
