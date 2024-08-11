@@ -103,8 +103,19 @@ ssh -i "<private key>.pem" <user>@<instance IP>
 ### Confirm Build and Deploy
 - Docker Hub image
 ![dockerhub](https://github.com/user-attachments/assets/c27896f6-d9a2-41f2-aca7-cf84552ec2b1)
-- kubernetes pods
+- Get kubernetes pods
+```
+kubectl get pods
+```
 ![kubectl_get_pods](https://github.com/user-attachments/assets/be403a83-7b44-4652-9551-449c6366c42d)
+
+- Port-forwarding
+```
+kubectl get services
+kubectl port-forward service/<service name> 8080:80
+curl -i http://<local-host>:8080
+```
+![port-forwarding](https://github.com/user-attachments/assets/6000901a-5fca-4574-a44b-1fcd33e02e3f)
 
 ### Challenges Faced
 During the setup of this CI/CD pipeline, several challenges were encountered:
@@ -120,5 +131,6 @@ Setting up Terraform to correctly provision an EC2 instance with Minikube requir
 
 - Docker and Kubernetes Integration
 Ensuring the Docker image was correctly built, pushed, and deployed to the Kubernetes cluster required careful management of Docker and Kubernetes configurations, particularly around handling environment variables and secrets.
-Contributing
+
+### Contributing
 Contributions are welcome! Please fork the repository and submit a pull request with your changes.
