@@ -44,7 +44,8 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > kckey_rsa.pem
           chmod 400 kckey_rsa.pem
-          scp -r -i "kckey_rsa.pem" ./kubernetes ubuntu@${{ secrets.EC2_IP }}:~/
+          scp -r -i "kckey_rsa.pem" ./kubernetes ubuntu@3.87.184.220:~/
+          # scp -r -i "kckey_rsa.pem" ./kubernetes ubuntu@${{ secrets.EC2_IP }}:~/
           # ssh -i "kckey_rsa.pem" ubuntu@${{ secrets.EC2_IP }}
           # mkdir new_directory
           # kubectl apply -f ~/kubernetes/secret.yaml
