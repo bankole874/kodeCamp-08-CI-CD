@@ -44,20 +44,19 @@ jobs:
       #     ssh-keyscan -p 22 ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
       #     sudo apt-get install sshpass
 
-      - name: SSH-setup
+          
+      - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          
-      - name: Minikube Deployment
+
+      - name: Deploy to Minikube
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_PUBLIC_IP }} << EOF
-          kubectl config use-context minikube
-          curl -O https://github.com/bankole874/kodeCamp-08-CI-CD/blob/main/kubernetes/service.yaml
-          # kubectl apply -f deployment.yaml
-          curl -O https://raw.githubusercontent.com/lahteeph/containerization/main/k8s/service.yaml
-          # kubectl apply -f service.yaml
-          EOF  
+          scp -r -i ~/.ssh/id_rsa kubernetess ubuntu@${{ secrets.EC2_IP }}:~/kubernetes
+          ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.EC2_IP }} << 'EOF'
+          kubectl apply -f ~/k8s/deployment.yaml
+          kubectl apply -f ~/k8s/service.yaml
+          EOF
           
       # - name: Deploy to Minikube
       #   run: |
