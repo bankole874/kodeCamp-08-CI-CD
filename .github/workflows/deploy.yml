@@ -48,6 +48,8 @@ jobs:
         run: |
           scp -r kubernetes ubuntu@${{ secrets.EC2_IP }}:~/kubernetes
           ssh ubuntu@${{ secrets.EC2_IP }} << 'EOF'
-            kubectl apply -f ~/kubernetes/deployment.yaml
-            kubectl apply -f ~/kubernetes/service.yaml
+          kubectl apply -f ~/kubernetes/secret.yaml
+          kubectl apply -f ~/kubernetes/configmap.yaml
+          kubectl apply -f ~/kubernetes/service.yaml
+          kubectl apply -f ~/kubernetes/deployment.yaml
           EOF
