@@ -19,7 +19,7 @@ The application is a simple Flask web app that displays the message `"Hello, Wel
 - SSH key (kckey_rsa) configured for secure access to the EC2 instance.
 - A GitHub repository for your application code.
 
-## Application Structure
+## Project Structure
 ```bash
 kodeCamp-08-CI-CD
 ├── .github/workflows
