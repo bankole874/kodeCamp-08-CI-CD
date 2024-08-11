@@ -44,11 +44,11 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > kckey_rsa.pem
           chmod 400 kckey_rsa.pem
-          scp -r -i kckey_rsa.pem ./Dockerfile ubuntu@${{ secrets.EC2_IP }}:~/
-          ssh -i "kckey_rsa.pem" ubuntu@${{ secrets.EC2_IP }}
-          mkdir new_directory
-          kubectl apply -f ~/kubernetes/secret.yaml
-          kubectl apply -f ~/kubernetes/configmap.yaml
-          kubectl apply -f ~/kubernetes/service.yaml
-          kubectl apply -f ~/kubernetes/deployment.yaml
-          EOF
+          # scp -r -i kckey_rsa.pem ./Dockerfile ubuntu@${{ secrets.EC2_IP }}:~/
+          # ssh -i "kckey_rsa.pem" ubuntu@${{ secrets.EC2_IP }}
+          # mkdir new_directory
+          # kubectl apply -f ~/kubernetes/secret.yaml
+          # kubectl apply -f ~/kubernetes/configmap.yaml
+          # kubectl apply -f ~/kubernetes/service.yaml
+          # kubectl apply -f ~/kubernetes/deployment.yaml
+          # EOF
