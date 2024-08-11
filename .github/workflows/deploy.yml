@@ -46,6 +46,7 @@ jobs:
           chmod 400 kckey_rsa.pem
           scp -r -i kckey_rsa.pem ./Dockerfile ubuntu@${{ secrets.EC2_IP }}:~/
           ssh -i "kckey_rsa.pem" ubuntu@${{ secrets.EC2_IP }}
+          mkdir new_directory
           kubectl apply -f ~/kubernetes/secret.yaml
           kubectl apply -f ~/kubernetes/configmap.yaml
           kubectl apply -f ~/kubernetes/service.yaml
