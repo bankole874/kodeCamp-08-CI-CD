@@ -24,6 +24,9 @@ The application is a simple Flask web app that displays the message `"Hello, Wel
 kodeCamp-08-CI-CD
 ├── .github/workflows
 │   └── deploy.yml
+├── app
+│   ├── app.py
+│   └── requirements.txt
 ├── kubernetes
 │   ├── configmap.yaml
 │   ├── deployment.yaml
