@@ -118,7 +118,6 @@ jobs:
 ```
 kubectl get pods
 ```
-![kubectl_get_pods](https://github.com/user-attachments/assets/be403a83-7b44-4652-9551-449c6366c42d)
 
 - Port-forwarding
 ```
@@ -126,7 +125,6 @@ kubectl get services
 kubectl port-forward service/<service name> 8080:80
 curl -i http://<local-host>:8080
 ```
-![port-forwarding](https://github.com/user-attachments/assets/6000901a-5fca-4574-a44b-1fcd33e02e3f)
 
 ### Challenges Faced
 During the setup of this CI/CD pipeline, several challenges were encountered:
