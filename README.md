@@ -53,8 +53,6 @@ example `kodeCamp-08-CI-CD`.
 - Create GitHub Actions Workflow
 - Create Terraform modules to provision the EC2 instance, VPC, and related resources.
 
-![files_preview](https://github.com/user-attachments/assets/ab194a50-bbd5-4707-b42c-ef01c9630dfb)
-
 ### Initialize and Apply Terraform Configuration
 ```
 terraform init
