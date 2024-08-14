@@ -64,7 +64,6 @@ terrafrm apply
 ```
 ssh -i "<private key>.pem" <user>@<instance IP>
 ```
-![ssh_and_minikube_status](https://github.com/user-attachments/assets/106e6f60-44b7-4063-a367-38716067aa62)
 
 ### Update the GitHub Actions workflow
 
