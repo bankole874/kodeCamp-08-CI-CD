@@ -1,4 +1,4 @@
-# CI/CD Pipeline with GitHub Actions, Terraform, Minikube, and Kubernetes
+# CI/CD Pipeline with GitHub Actions, Terraform, AWS, Minikube, and Kubernetes
 
 ## Introduction
 This project demonstrates the setup of a CI/CD pipeline using GitHub Actions to deploy an application from a GitHub repository to a Minikube cluster running on an AWS EC2 instance. The infrastructure is provisioned using Terraform, and the application is containerized with Docker.
